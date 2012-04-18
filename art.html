@@ -1,0 +1,49 @@
+﻿<style>
+.pos {
+    height:20px;
+    width:20px;
+    position:absolute;
+    font-size:20px;
+    line-height:20px;
+    font-family:宋体;
+}
+.pos:hover {
+    outline:solid 1px blue;
+}
+
+</style>
+<body></body>
+
+<script>
+var width = 30, height = 30;
+var start = null;
+var divs = [];
+for(var y = 0; y <height ; y ++){
+    for(var x = 0; x <width; x ++) {
+        var div = document.createElement("div");
+        div.className = "pos";
+        div.style.top = y*20 + "px";
+        div.style.left = x*20 + "px";
+        document.body.appendChild(div);
+        div.innerHTML = "　";
+        divs.push(div);
+        div.onclick = function(x,y){
+            return function(){
+                if(!start) return start = [x,y];
+                if(x == start[0])
+                    for(var i = Math.min(start[1],y); i <= Math.max(start[1],y); i++) {
+                        divs[x+i*width].innerHTML = "┃"
+                    }
+                if(y == start[1])
+                    for(var i = Math.min(start[0],x); i <= Math.max(start[0],x); i++) {
+                        divs[i+y*width].innerHTML = "━"
+                    }
+                start = null;
+            }
+        }(x,y);
+    }
+}
+
+</script>
+─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍
+╭╮╯╰
