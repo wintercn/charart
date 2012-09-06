@@ -5,7 +5,7 @@
     position:absolute;
     font-size:24px;
     line-height:24px;
-    font-family:song;
+    font-family:song, 宋体;
 }
 .pos:hover {
     outline:solid 1px blue;
@@ -15,7 +15,9 @@
 <body>
 <a href="javascript:pen = 1;void 0;">细</a>
 <a href="javascript:pen = 2;void 0;">粗</a>
-<a href="javascript:pen = 0;void 0;">擦</a>
+<a href="javascript:pen = 0;void 0;">擦</a><br/>
+<textarea id="output" style="width:500px;margin-left:800px;min-height:500px"></textarea>
+<div id="container"></div>
 </body>
 <!--
 ─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┣┤┫┼╋╌╍
@@ -129,7 +131,8 @@ for(var y = 0; y <height ; y ++){
         div.className = "pos";
         div.style.top = 50+y*24 + "px";
         div.style.left = x*24 + "px";
-        document.body.appendChild(div);
+        div.style.background = "#EEEEEE";
+        document.querySelector("#container").appendChild(div);
         div.innerHTML = "　";
         var char = {
             _up:0,_down:0,_left:0,_right:0,
@@ -164,6 +167,7 @@ for(var y = 0; y <height ; y ++){
         
         div.onclick = function(x,y){
             return function(){
+
                 if(!start) return start = [x,y];
                 if(x == start[0]) {
                     chars[x+Math.min(start[1],y)*width].down = pen;
@@ -182,9 +186,11 @@ for(var y = 0; y <height ; y ++){
                     }
                 }
                 start = null;
+                document.querySelector("#output").value = document.querySelector("#container").innerText;
             }
         }(x,y);
     }
+    document.querySelector("#container").appendChild(document.createElement("br"));
 }
 
 </script>
